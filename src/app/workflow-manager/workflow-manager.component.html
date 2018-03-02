@@ -1,0 +1,83 @@
+<div class="container-fluid">  
+  <p></p>
+  <div class="row">
+    <div class="col">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-warning">Workflows</li>
+        <li 
+          class="list-group-item list-group-item-action" 
+          *ngFor="let workflow of workflows" 
+          (click)="onWorkflowClick(workflow)">
+          <i (click)="onTrashClick($event, workflow)" class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;
+          <i (click)= "onActivateClick($event, workflow)" class="fa" [class.fa-circle]="workflow.active" [class.fa-circle-o]="!workflow.active" aria-hidden="true"></i>&nbsp;
+          {{workflow.id == 1 ? "Dental" : "Professional"}} v{{workflow.version}}
+        </li>  
+      </ul>
+      <p></p>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">      
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <p></p>
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-primary" (click)="onSave()"
+      [disabled]="destinationList.length == 0">Save Workflow</button>
+       <button type="button" class="btn btn-primary" (click)="onClear()">
+         Clear</button>
+      <p></p>
+    </div>
+  </div>
+   <div class="row">
+    <div class="col"> 
+      <label for="classification">Classification</label>
+      <input type="text" class="form-control" name="classification" 
+            disabled
+            [(ngModel)]="classification">
+    </div>
+    <div class="col">
+      <label for="type">* Type</label>
+      <select class="form-control" name="type" [(ngModel)]="workflow.id">
+        <option *ngFor="let wrkflwType of wrkflwTypes" [value]="wrkflwType.id">{{wrkflwType.type}}</option>
+      </select>
+    </div>   
+  </div>
+  <p></p>
+  <div class="row">    
+    <div class="col">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-warning">Steps</li>
+        <li class="list-group-item list-group-item-action" 
+            *ngFor="let srcItem of sourceList"             
+            epDraggable="{ &quot;data&quot;:&quot;{{srcItem}}&quot; }">{{srcItem}}</li>  
+      </ul>
+    </div>
+    <!--<div class="col-1">
+      <button type="button" class="btn btn-primary" (click)="removeClick()">&lt;</button>
+      <p></p>
+      <button type="button" class="btn btn-success" (click)="addClick()">&gt;</button>
+    </div>
+    -->    
+    <div class="col">              
+      <div class="alert alert-danger" role="alert" epDropTarget (onDrop)="onDropTrash($event)">
+        <i class="fa fa-trash-o" aria-hidden="true"></i> Trash
+      </div>
+      <div class="dropZone" epDropTarget (onDrop)="onDrop($event)">
+        <div *ngIf="destinationList.length == 0">Drop steps here.</div>
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-action" 
+              *ngFor="let destItem of destinationList"              
+              epDraggable="{&quot;zone&quot;:&quot;trash&quot;,&quot;data&quot;:&quot;{{destItem}}&quot; }">{{destItem}}</li>
+        </ul>  
+      </div>
+      </div>
+  </div>
+</div>
+<p></p>

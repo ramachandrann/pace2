@@ -1,0 +1,7 @@
+.dropZone {
+  border: 2px dashed #bbb;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;  
+}

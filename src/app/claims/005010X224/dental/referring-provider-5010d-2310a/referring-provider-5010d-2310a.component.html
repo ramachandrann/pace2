@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-header">
+    Referring Provider
+  </div>
+  <div class="card-block">    
+
+      <div class="form-group row">
+        <label for="providerLastOrOrganizationNameSearch" class="col-sm-2 col-form-label">Provider Last Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" 
+            #providerLastNameSearch
+          (keyup)="searchTerm.next(providerLastNameSearch.value)" > 
+        </div>
+      </div> 
+
+      <div class="row">
+        <div class="col-3">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let provider of npiRegistryProviders | async" [class.active]="selectedProvider == provider" (click)="onSelectingProvider(provider)">{{provider.basic.name}}</li>
+          </ul> 
+        </div>
+        <div class="col">
+          {{selectedProvider | json}}
+        </div>
+      </div>     
+
+  </div>
+</div>

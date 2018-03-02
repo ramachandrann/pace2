@@ -1,0 +1,69 @@
+<div class="container-fluid">    
+  <div class="row">
+    <i class="fa" [class.fa-plus-square-o]="!showStepProgress" [class.fa-minus-square-o]="showStepProgress" aria-hidden="true" (click)="showSteps()"></i>
+    <div class="col-2" *ngIf="showStepProgress">       
+      <p></p>
+      <!-- CANT USE AUXILLARY named ROUTE because the currentworkflowstep is not visible via URL to this component 
+      neither it can be fired as event -->      
+      <ul class="list-group">
+        <li *ngFor="let step of workflowSteps" class="list-group-item" [class.active]="step.id == currentWorkflowStep.id">{{step.name}}</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p><p>
+      <div class="alert alert-success" role="alert">
+              <strong>Claim ID: </strong>{{claim?.id}}
+              (Claim Status: {{claim?.status_code | claimStatus}} 
+              &nbsp; Claim Type: {{claim?.type == 'D' ? 'Dental': 'Professional'}})
+
+              <i (click)="modalClick()" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" title="Where's my claim ?"></i> 
+            </div>
+      <router-outlet></router-outlet>
+    
+    </div>
+  </div> 
+  <div class="row">
+    <div class="col-2">       
+      &nbsp;
+    </div>
+    <div class="col">
+      <button type="button" (click)="onPrev()" class="btn btn-secondary">Prev</button>
+      <button type="button" (click)="onNext()" class="btn btn-primary">{{nextButtonLabel}}</button> 
+    </div>
+  </div> 
+</div>  
+<!-- Progress of workflow -->
+
+<!-- #### NEED TO BE REPLACED with ANGULAR2 COMPONENT- JUST A DEMO### Trigger/Open The Modal -->
+<!-- [class.modal-on]="showModal" [class.modal-off]="!showModal" -->
+<div [class.modal-on-test]="showModal">
+  <div id="diagram" class="modal-content"  [style.display]="showModal ? 'block': 'none'" >
+    <span class="close" (click)="modalCloseClick()">&times;</span>
+  </div>
+</div>
+
+<!-- Button trigger modal 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+-->
+<!-- Modal 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->
